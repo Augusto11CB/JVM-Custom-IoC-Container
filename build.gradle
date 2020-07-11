@@ -1,0 +1,87 @@
+plugins {
+    id 'application'
+    id 'com.adarshr.test-logger' version '2.0.0'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    flatDir {
+        dirs 'lib', 'unittestlib'
+    }
+    jcenter()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+
+compileJava {
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.compilerArgs << '-parameters'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main'
+            outputDir = file('../out/aug/bueno/production')
+        }
+    }
+
+    test {
+        java {
+            srcDir 'test/src'
+            outputDir = file('../out/test/aug/bueno')
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.4.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.4.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
+    implementation 'javax.json:javax.json-api:1.0'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest-core:1.3'
+}
+
+application {
+    mainClassName = 'com.mantiso.Main'
+}
+
+
+testlogger {
+    theme='standard'
+    showExceptions = true
+    showStackTraces = true
+    showFullStackTraces = false
+    showCauses = true
+    slowThreshold = 2000
+    showSummary = true
+    showSimpleNames = false
+    showPassed = true
+    showSkipped = true
+    showFailed = true
+    showStandardStreams = false
+    showPassedStandardStreams = true
+    showSkippedStandardStreams = true
+    showFailedStandardStreams = true
+}
+
+
+//tasks.compileJava {
+//    options.compilerArgs.add('-parameters')
+//}
+//
+//tasks.compileTestJava {
+//    options.compilerArgs.add('-parameters')
+//}
